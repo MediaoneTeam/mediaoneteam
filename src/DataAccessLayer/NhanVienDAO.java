@@ -7,7 +7,6 @@ package DataAccessLayer;
 
 import DataTranferObject.NhanVien;
 import GiaoDien.fLogin;
-import GiaoDien.fQuanLyBanHang;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -18,7 +17,7 @@ import java.util.logging.Logger;
  * @author lehuyhung
  */
 public class NhanVienDAO {
- 
+    
     public static NhanVien getNhanVien(String idnhanvien,String password){
         
        String query="select * from nhanvien where idnhanvien="+idnhanvien+" and password="+password;
