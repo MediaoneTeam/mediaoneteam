@@ -43,7 +43,7 @@ public class DataProvider {
     
     public ResultSet executeQuery(String query) {
         
-        ResultSet resultSet=null;
+       ResultSet resultSet=null;
        Statement statement;
         try {
             statement = connection.createStatement();

@@ -6,6 +6,8 @@
 package GiaoDien;
 
 import DataAccessLayer.DataProvider;
+import DataAccessLayer.NhanVienDAO;
+import DataTranferObject.NhanVien;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -155,22 +157,12 @@ public class fLogin extends javax.swing.JFrame {
             canhbaoloi();
             return;
         }
-        String query="select count(*) as tongso from nhanvien where idnhanvien="+idnhanvien+" and password="+password;
-       DataProvider dataProvider=DataProvider.getDatDataProvider();
-       ResultSet resultSet=dataProvider.executeQuery(query);
-       int soluong=0;
-        try {
-            while(resultSet.next()){
-               soluong =resultSet.getInt("tongso");
-               break;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(fLogin.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        if(soluong==1){
+      
+      NhanVien nhanVien;
+        nhanVien = NhanVienDAO.getNhanVien(idnhanvien, password);
+        if(nhanVien!=null){
             
-        fQuanLyBanHang fquanlybanhang=new fQuanLyBanHang();
+        fQuanLyBanHang fquanlybanhang=new fQuanLyBanHang(nhanVien);
         this.setVisible(false);
         fquanlybanhang.setVisible(true);
         fquanlybanhang.setAlwaysOnTop(true);
