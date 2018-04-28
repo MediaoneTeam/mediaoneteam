@@ -51,6 +51,7 @@ public class DataProvider {
         } catch (SQLException ex) {
             Logger.getLogger(DataProvider.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         return resultSet;
     }
     

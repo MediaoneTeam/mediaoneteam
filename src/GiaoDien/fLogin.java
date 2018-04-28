@@ -152,6 +152,7 @@ public class fLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         String idnhanvien=txtfEmployNumber.getText();
+      
         String password=txtfPassword.getText();
         if(idnhanvien.equals("")||password.equals("")){
             canhbaoloi();

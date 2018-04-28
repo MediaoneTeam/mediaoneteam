@@ -35,6 +35,7 @@ private Date ngaybatdau;
 
     public NhanVien(ResultSet resultSet) {
         super();
+        
     try {
         this.idnhanvien=resultSet.getInt("idnhanvien");
         this.tenNhanVien=resultSet.getString("tennhanvien");

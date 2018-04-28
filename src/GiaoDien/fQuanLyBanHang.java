@@ -23,6 +23,7 @@ public class fQuanLyBanHang extends javax.swing.JFrame {
      */
     public fQuanLyBanHang(NhanVien nhanVien) { 
         initComponents();
+        
         //this.setLocationRelativeTo(null);
         Rectangle r = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
         setSize(r.getSize());
