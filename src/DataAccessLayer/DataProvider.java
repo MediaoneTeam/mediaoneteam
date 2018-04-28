@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author lehuyhung
  */
-public class DataProvider {
+class DataProvider {
     private final String classname="com.mysql.jdbc.Driver";
     private Connection connection;
     private String user="root";
