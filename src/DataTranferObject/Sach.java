@@ -5,10 +5,16 @@
  */
 package DataTranferObject;
 
+import java.sql.ResultSet;
+
 /**
  *
  * @author lehuyhung
  */
 public class Sach extends SanPham {
+    
+    public Sach(ResultSet resultSet) {
+        super(resultSet);
+    }
     
 }

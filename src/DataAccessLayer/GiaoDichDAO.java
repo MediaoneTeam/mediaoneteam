@@ -3,18 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DataTranferObject;
-
-import java.sql.ResultSet;
+package DataAccessLayer;
 
 /**
  *
  * @author lehuyhung
  */
-public class DiaPhim extends SanPham{
-    
-    public DiaPhim(ResultSet resultSet) {
-        super(resultSet);
-    }
+public class GiaoDichDAO {
     
 }
