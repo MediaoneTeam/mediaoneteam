@@ -6,6 +6,7 @@
 package GiaoDien.pnDetailSanPham;
 
 import DataTranferObject.Sach;
+import DataTranferObject.SanPham;
 
 /**
  *
@@ -16,7 +17,7 @@ public class pnSanPham extends javax.swing.JPanel {
     /**
      * Creates new form pnSanPham
      */
-    public pnSanPham() {
+    public pnSanPham(SanPham sp) {
         initComponents();
     }
     public pnSanPham(Sach sach){

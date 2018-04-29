@@ -3,18 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DataTranferObject;
-
-import java.sql.ResultSet;
+package Exception;
 
 /**
  *
  * @author lehuyhung
  */
-public class DiaPhim extends SanPham{
-    
-    public DiaPhim(ResultSet resultSet) {
-        super(resultSet);
+public class IdSanPhamNotMatch extends Exception{
+
+    public IdSanPhamNotMatch(String idsanpham) {
+        super("id không tồn tại:"+idsanpham);
     }
+
     
 }
