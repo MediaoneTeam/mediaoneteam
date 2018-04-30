@@ -45,5 +45,11 @@ private Date ngaybatdau;
     }
         
     }
+
+    public int getIdnhanvien() {
+        return idnhanvien;
+    }
+    
+    
     
 }
