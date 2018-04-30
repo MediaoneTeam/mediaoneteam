@@ -5,10 +5,15 @@
  */
 package DataAccessLayer;
 
+import DataTranferObject.GiaoDich;
+
 /**
  *
  * @author lehuyhung
  */
 public class GiaoDichDAO {
-    
+    public static void insertGiaoDich(GiaoDich giaoDich){
+        String query="INSERT INTO `giaodich`(`sanpham_idsanpham`, `hoadon_idhoadon`, `soluong`, `giatien`) VALUES ("+giaoDich.getIdsanpham()+","+giaoDich.getIdhoadon()+","+giaoDich.getSoluong()+","+giaoDich.getGiatien()+")";
+        DataProvider.getDatDataProvider().executeInsert(query);
+    }
 }

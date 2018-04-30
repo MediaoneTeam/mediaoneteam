@@ -6,6 +6,7 @@
 package DataAccessLayer;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -55,6 +56,31 @@ class DataProvider {
         return resultSet;
     }
     
+    public ResultSet executeInsert(String query){
+          ResultSet resultSet=null;
+        try {
+            PreparedStatement ps = this.connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+            ps.execute();
+            resultSet=ps.getGeneratedKeys();
+        } catch (SQLException ex) {
+            System.out.println("executeInsert trong DataProvider lỗi");
+        }
+        
+        return resultSet;
+        
+    }
+    public void executeUpdate(String query){
+       
+       Statement statement;
+        try {
+            statement = connection.createStatement();
+            statement.executeUpdate(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(DataProvider.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+     
+    }
     public static void main(String[] args) {
         
         ResultSet rs=DataProvider.getDatDataProvider().executeQuery("select * from nhanvien");
@@ -65,5 +91,6 @@ class DataProvider {
         } catch (SQLException ex) {
             Logger.getLogger(DataProvider.class.getName()).log(Level.SEVERE, null, ex);
         }
+        DataProvider.getDatDataProvider().executeInsert("INSERT INTO `hoadon`(`idhoadon`, `ngaymua`, `nhanvien_idnhanvien`) VALUES (null,null,1)");
     }
 }

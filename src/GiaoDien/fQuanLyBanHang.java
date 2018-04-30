@@ -5,7 +5,9 @@
  */
 package GiaoDien;
 
+import BusinessLayer.ThanhToanBO;
 import DataAccessLayer.SanPhamDAO;
+import DataTranferObject.GiaoDich;
 import DataTranferObject.NhanVien;
 import DataTranferObject.SanPham;
 import Exception.IdSanPhamNotMatch;
@@ -15,10 +17,12 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -29,6 +33,7 @@ import sun.java2d.SunGraphicsEnvironment;
  * @author lehuyhung
  */
 public class fQuanLyBanHang extends javax.swing.JFrame {
+NhanVien nhanVien;
 
     /**
      * Creates new form fQuanLyBanHang
@@ -43,19 +48,21 @@ public class fQuanLyBanHang extends javax.swing.JFrame {
         initComponents();
         //pnTabHuyDonHang tabHuyDonHang=new pnTabHuyDonHang();
         //this.jTabbedPane1.add("hủy đơn hàng", tabHuyDonHang);
+        this.nhanVien=nhanVien;
         Action delete = new AbstractAction(){
             @Override
             public void actionPerformed(ActionEvent e)
             {
+                System.out.println("xóa dòng");
                 JTable table = (JTable)e.getSource();
                 int modelRow = Integer.valueOf( e.getActionCommand() );
                 ((DefaultTableModel)table.getModel()).removeRow(modelRow);
             }
         };
         
-        ButtonColumn buttonColumn = new ButtonColumn(tbDanhSachMatHang, delete, 5);
-        buttonColumn.setMnemonic(KeyEvent.VK_D);
-        
+        //ButtonColumn buttonColumn = new ButtonColumn(tbDanhSachMatHang, delete, 5);
+       // buttonColumn.setMnemonic(KeyEvent.VK_D);
+       
        
     }
 
@@ -99,6 +106,7 @@ public class fQuanLyBanHang extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         spSoLuong = new javax.swing.JSpinner();
+        jButton1 = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -205,6 +213,8 @@ public class fQuanLyBanHang extends javax.swing.JFrame {
 
         jButton3.setText("Detail");
 
+        jButton1.setText("xóa");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -226,9 +236,12 @@ public class fQuanLyBanHang extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnThemSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(jButton3)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(btnThemSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton3))
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -249,7 +262,8 @@ public class fQuanLyBanHang extends javax.swing.JFrame {
                     .addComponent(jButton4)
                     .addComponent(jButton3)
                     .addComponent(btnThemSanPham))
-                .addGap(37, 37, 37))
+                .addGap(14, 14, 14)
+                .addComponent(jButton1))
         );
 
         jPanel9.setName("danh sách mặt hàng"); // NOI18N
@@ -262,15 +276,21 @@ public class fQuanLyBanHang extends javax.swing.JFrame {
 
             },
             new String [] {
-                "mã sản phẩm", "tên sản phẩm", "số lượng", "giá", "tổng tiền", ""
+                "mã sản phẩm", "tên sản phẩm", "số lượng", "giá", "tổng tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tbDanhSachMatHang.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tbDanhSachMatHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbDanhSachMatHangMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tbDanhSachMatHang);
@@ -436,7 +456,6 @@ public class fQuanLyBanHang extends javax.swing.JFrame {
     private void txtfMaSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfMaSanPhamActionPerformed
        
         this.txtfMaSanPham.setBackground(Color.white);
-        System.out.println("id san phẩm : "+this.txtfMaSanPham.getText());
         String idsanpham=this.txtfMaSanPham.getText();
         SanPham sanpham;
         try {
@@ -461,8 +480,23 @@ public class fQuanLyBanHang extends javax.swing.JFrame {
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
-        //SQL in here
+        // lấy dữ liệu
+        NhanVien nhanVien=this.nhanVien;
         
+        
+        ArrayList<GiaoDich> giaodichs=new ArrayList<GiaoDich>();
+        DefaultTableModel dm = (DefaultTableModel)this.tbDanhSachMatHang.getModel();
+        int rowCount = dm.getRowCount();
+        for (int i = rowCount - 1; i >= 0; i--) {
+            String idsanpham=dm.getValueAt(i, 0).toString();
+            int soluong=Integer.parseInt(dm.getValueAt(i, 2).toString());
+            int gia=Integer.parseInt(dm.getValueAt(i, 3).toString());
+            
+            giaodichs.add(new GiaoDich(idsanpham,soluong,gia));
+            
+        }
+        //gọi message
+        ThanhToanBO.thanhToan(nhanVien, giaodichs);
         //clear bảng
         clearBang();
         
@@ -470,10 +504,43 @@ public class fQuanLyBanHang extends javax.swing.JFrame {
 
     private void btnThemSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSanPhamActionPerformed
         // TODO add your handling code here:
+         Action delete = new AbstractAction(){
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                System.out.println("xóa dòng");
+                JTable table = (JTable)e.getSource();
+                int modelRow = Integer.valueOf( e.getActionCommand() );
+                ((DefaultTableModel)table.getModel()).removeRow(modelRow);
+            }
+        };
         DefaultTableModel model=(DefaultTableModel) tbDanhSachMatHang.getModel();
-        model.addRow(new Object[]{txtfMaSanPham.getText(),tfTenSanPham.getText(),spSoLuong.getValue(),tfGiaBanHienTai.getText(),""+Integer.parseInt(spSoLuong.getValue().toString())*Integer.parseInt(tfGiaBanHienTai.getText()),"xóa"});
+        boolean notfound=true;
+        for (int i = tbDanhSachMatHang.getRowCount()-1; i >= 0; i--){
+            if(txtfMaSanPham.getText().equals(model.getValueAt(i, 0).toString())){
+                //update số lượng + giá bán
+                model.setValueAt(this.spSoLuong.getValue(), i, 2);
+                model.setValueAt(this.tfGiaBanHienTai.getText(), i, 3);
+                model.setValueAt(Integer.parseInt(this.tfGiaBanHienTai.getText())*Integer.parseInt(this.spSoLuong.getValue().toString()), i, 4);
+                notfound=false;
+                break;
+            }
+            
+        }
+        if(notfound==true){
+           model.addRow(new Object[]{txtfMaSanPham.getText(),tfTenSanPham.getText(),spSoLuong.getValue(),tfGiaBanHienTai.getText(),""+Integer.parseInt(spSoLuong.getValue().toString())*Integer.parseInt(tfGiaBanHienTai.getText())});
+         
+        }
         clearInput();
     }//GEN-LAST:event_btnThemSanPhamActionPerformed
+
+    private void tbDanhSachMatHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDanhSachMatHangMouseClicked
+        // TODO add your handling code here:
+        this.txtfMaSanPham.setText(tbDanhSachMatHang.getValueAt(tbDanhSachMatHang.getSelectedRow(),0).toString());
+        this.tfTenSanPham.setText(tbDanhSachMatHang.getValueAt(tbDanhSachMatHang.getSelectedRow(),1).toString());
+        this.spSoLuong.setValue(tbDanhSachMatHang.getValueAt(tbDanhSachMatHang.getSelectedRow(),2));
+        this.tfGiaBanHienTai.setText(tbDanhSachMatHang.getValueAt(tbDanhSachMatHang.getSelectedRow(),3).toString());
+    }//GEN-LAST:event_tbDanhSachMatHangMouseClicked
 
     /**
      * @param args the command line arguments
@@ -513,6 +580,7 @@ public class fQuanLyBanHang extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThanhToan;
     private javax.swing.JButton btnThemSanPham;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
