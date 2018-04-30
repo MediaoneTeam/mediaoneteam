@@ -24,7 +24,6 @@ public class SanPhamDAO {
     static public SanPham getSanPham(String idsanpham) throws IdSanPhamNotMatch{
         SanPham sanPham=null;
         String query="Select * from sanpham where idsanpham="+idsanpham;
-        System.out.println(query);
         ResultSet resultSet=DataProvider.getDatDataProvider().executeQuery(query);
         try {
            if (!resultSet.isBeforeFirst() ) {    
@@ -38,5 +37,9 @@ public class SanPhamDAO {
             throw new IdSanPhamNotMatch(idsanpham);
         }
         return sanPham;
+    }
+    static public void giamSoluong(String idsanpham,int luonggiam){
+    String query="UPDATE `sanpham` SET `soluongconlai`=`soluongconlai`-"+luonggiam+" WHERE idsanpham="+idsanpham;
+        DataProvider.getDatDataProvider().executeUpdate(query);
     }
 }
