@@ -5,10 +5,16 @@
  */
 package DataTranferObject;
 
+import java.sql.ResultSet;
+
 /**
  *
  * @author lehuyhung
  */
 public class DiaPhim extends SanPham{
+    
+    public DiaPhim(ResultSet resultSet) {
+        super(resultSet);
+    }
     
 }

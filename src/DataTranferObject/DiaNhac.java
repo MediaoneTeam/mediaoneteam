@@ -5,10 +5,16 @@
  */
 package DataTranferObject;
 
+import java.sql.ResultSet;
+
 /**
  *
  * @author lehuyhung
  */
 public class DiaNhac extends SanPham{
+    
+    public DiaNhac(ResultSet resultSet) {
+        super(resultSet);
+    }
     
 }
