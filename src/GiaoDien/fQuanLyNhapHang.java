@@ -113,6 +113,11 @@ public class fQuanLyNhapHang extends javax.swing.JFrame {
         );
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sách ", "Đĩa nhạc ", "Đĩa phim ", " " }));
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -316,6 +321,11 @@ public class fQuanLyNhapHang extends javax.swing.JFrame {
         setUpProviderColumn(jTable2,jTable2.getColumnModel().getColumn(3) );
         setUpDisplayColumn(jTable1,jTable1.getColumnModel().getColumn(3));
     }//GEN-LAST:event_formWindowOpened
+
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        // TODO add your handling code here
+        System.out.println("HELlo");
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
     
     /**
      * @param args the command line arguments
