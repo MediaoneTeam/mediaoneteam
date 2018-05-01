@@ -208,6 +208,7 @@ NhanVien nhanVien;
 
         lbSoluong.setText("Số lượng");
 
+        lbAnhMinhHoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anhminhhoa/dia-ca-nhac-cd-nhung-ca-khuc-bat-hu-ve-bac-ho-do-pham-phuong-thao-trinh-bay.png"))); // NOI18N
         lbAnhMinhHoa.setText("anhminhoa");
 
         jButton4.setText("clear thông tin");
@@ -454,7 +455,10 @@ NhanVien nhanVien;
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -477,12 +481,15 @@ NhanVien nhanVien;
         this.txtfMaSanPham.setBackground(Color.white);
         String idsanpham=this.txtfMaSanPham.getText();
         SanPham sanpham;
+        System.out.println(System.getProperty("user.dir"));
         try {
             sanpham = SanPhamDAO.getSanPham(idsanpham);
           this.tfTenSanPham.setText(sanpham.getTensanpham());
           this.tfGiaBanHienTai.setText(""+sanpham.getGiabanhientai());
          
-          lbAnhMinhHoa.setIcon(new javax.swing.ImageIcon((new javax.swing.ImageIcon("src\\anhminhhoa\\"+sanpham.getAnhminhhoa())).getImage().getScaledInstance(lbAnhMinhHoa.getWidth(), lbAnhMinhHoa.getHeight(), 2)));
+          lbAnhMinhHoa.setIcon(new javax.swing.ImageIcon((new javax.swing.ImageIcon("/home/vhk/PROJECT_ON_GIT/mediaoneteam/scr/anhminhhoa/dia-ca-nhac-cd-nhung-ca-khuc-bat-hu-ve-bac-ho-do-pham-phuong-thao-trinh-bay.png")).getImage().getScaledInstance(lbAnhMinhHoa.getWidth(), lbAnhMinhHoa.getHeight(), 2)));
+
+         
         } catch (IdSanPhamNotMatch ex) {
             this.txtfMaSanPham.setBackground(Color.red);
         }
