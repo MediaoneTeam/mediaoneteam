@@ -5,24 +5,30 @@
  */
 package GiaoDien;
 
-import javafx.scene.control.Spinner;
+import BusinessLayer.NhapHangBO;
+import DataTranferObject.DiaNhac;
+import DataTranferObject.DiaPhim;
+import DataTranferObject.NhanVien;
+import DataTranferObject.Sach;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JSpinner;
+import javax.swing.JFileChooser;
+
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-/**
- *
- * @author vhk
- */
 public class fQuanLyNhapHang extends javax.swing.JFrame {
-
-    /**
-     * Creates new form fQuanLyNhapHang
-     */
+    NhanVien nhanVien;
+    ArrayList<Object[]> listProduces;
     public fQuanLyNhapHang() {
         initComponents();
     }
@@ -207,6 +213,11 @@ public class fQuanLyNhapHang extends javax.swing.JFrame {
         jTextField1.setText("...");
 
         jButton4.setText("Chọn file");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sách ", "Đĩa nhạc ", "Đĩa phim ", " " }));
 
@@ -224,6 +235,11 @@ public class fQuanLyNhapHang extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jTable3);
 
         jButton5.setText("Nhập hàng");
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -233,16 +249,16 @@ public class fQuanLyNhapHang extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4)
-                        .addGap(235, 235, 235)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 196, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton5)))
+                        .addComponent(jButton5))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 379, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -326,6 +342,105 @@ public class fQuanLyNhapHang extends javax.swing.JFrame {
         // TODO add your handling code here
         System.out.println("HELlo");
     }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        // TODO add your handling code here:
+        ArrayList<Object[]> listProduces;
+        JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+    int result = fileChooser.showOpenDialog(this);
+    if (result == JFileChooser.APPROVE_OPTION) {
+        File selectedFile = fileChooser.getSelectedFile();
+        
+        jTextField1.setText(selectedFile.getAbsolutePath());
+        jTextField1.setEditable(false);
+        
+        listProduces = ReadCSVFile(selectedFile);
+         
+        if(listProduces!=null){
+        switch(jComboBox2.getSelectedIndex()){
+            case 0:
+               fillTableWithBooks(listProduces);
+                break;
+            case 1:
+                fillTableWithCDMusics(listProduces);
+                break;
+            case 2:
+                fillTableWithCDFilms(listProduces);
+                break;
+            }
+        }
+    }
+    }//GEN-LAST:event_jButton4MouseClicked
+
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+       //NOT COMPLITE!!!!!!!!!!!!!!!!!!!!
+        switch(jComboBox2.getSelectedIndex()){
+            case 0:
+                ArrayList<Sach> listBook = new ArrayList();
+                NhapHangBO.nhapHangSach(nhanVien,listBook);
+                break;
+            case 1:
+               ArrayList<DiaNhac> listCDMusic = new ArrayList();
+                NhapHangBO.nhapHangDiaNhac(nhanVien, listCDMusic);
+                break;
+            case 2:
+                ArrayList<DiaPhim> listCDFilm = new ArrayList();
+                NhapHangBO.nhapHangDiaPhim(nhanVien, listCDFilm);
+                break;
+            }
+        
+    }//GEN-LAST:event_jButton5MouseClicked
+    private void fillTableWithBooks(ArrayList<Object[]> listBook){
+        String coltitle[] = new String[]{"mã sản phẩm", "tên sách", "NXB", "tác giả", "Số lượng","giá nhập"};
+        DefaultTableModel model = new DefaultTableModel(coltitle, 0);
+
+        for (Object[] row : listBook) {
+            model.addRow(row);
+        }
+        jTable3.setModel(model);
+    }
+    private void fillTableWithCDMusics(ArrayList<Object[]> listCD){
+        String coltitle[] = new String[]{"mã sản phẩm", "tên Album", "Thể loại", "Tên ca sĩ", "Số lượng","giá nhập"};
+        DefaultTableModel model = new DefaultTableModel(coltitle, 0);
+
+        for (Object[] row : listCD) {
+            model.addRow(row);
+        }
+        jTable3.setModel(model);
+        
+    }
+    private void fillTableWithCDFilms(ArrayList<Object[]> listCD){
+          String coltitle[] = new String[]{"mã sản phẩm", "tên phim", "đạo diễn", "diễn viên", "Số lượng","giá nhập"};
+        DefaultTableModel model = new DefaultTableModel(coltitle, 0);
+
+        for (Object[] row : listCD) {
+            model.addRow(row);
+        }
+        jTable3.setModel(model);
+    }
+    
+    private ArrayList<Object[]> ReadCSVFile(File fileInput){
+        ArrayList<Object[]> listProduces = new ArrayList();
+        String line = ""; 
+        String cvsSplitBy = ",";
+        try (BufferedReader br = new BufferedReader(new FileReader(fileInput))) {
+
+            while ((line = br.readLine()) != null) {
+                String[] metaData = line.split(cvsSplitBy);
+                int i = metaData.length;
+                Object[] produce = new Object[i];
+                for(int j = 0 ; j<metaData.length;j++){
+                    produce[j] = metaData[j];
+                }
+                listProduces.add(produce);
+                // use comma as separator
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return listProduces;
+    }
     
     /**
      * @param args the command line arguments
