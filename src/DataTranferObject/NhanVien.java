@@ -49,6 +49,10 @@ private Date ngaybatdau;
     public int getIdnhanvien() {
         return idnhanvien;
     }
+
+    public void setIdnhanvien(int idnhanvien) {
+        this.idnhanvien = idnhanvien;
+    }
     
     
     

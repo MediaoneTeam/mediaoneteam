@@ -3,21 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/vhk/PROJECT_ON_GIT/mediaoneteam/src/DataAccessLayer/DataProvider.java</file>
-            <file>file:/home/vhk/PROJECT_ON_GIT/mediaoneteam/src/BusinessLayer/NhapHangBO.java</file>
             <file>file:/home/vhk/PROJECT_ON_GIT/mediaoneteam/src/GiaoDien/fQuanLyNhapHang.java</file>
-            <file>file:/home/vhk/PROJECT_ON_GIT/mediaoneteam/src/BusinessLayer/ThanhToanBO.java</file>
-            <file>file:/home/vhk/PROJECT_ON_GIT/mediaoneteam/src/DataAccessLayer/NhanVienDAO.java</file>
-            <file>file:/home/vhk/PROJECT_ON_GIT/mediaoneteam/src/DataTranferObject/Sach.java</file>
-            <file>file:/home/vhk/PROJECT_ON_GIT/mediaoneteam/src/DataTranferObject/GiaoDich.java</file>
-            <file>file:/home/vhk/PROJECT_ON_GIT/mediaoneteam/src/DataTranferObject/HoaDon.java</file>
-            <file>file:/home/vhk/PROJECT_ON_GIT/mediaoneteam/src/DataTranferObject/DiaNhac.java</file>
-            <file>file:/home/vhk/PROJECT_ON_GIT/mediaoneteam/src/DataTranferObject/NhanVien.java</file>
-            <file>file:/home/vhk/PROJECT_ON_GIT/mediaoneteam/src/DataAccessLayer/NhapHangDAO.java</file>
-            <file>file:/home/vhk/PROJECT_ON_GIT/mediaoneteam/src/GiaoDien/fQuanLyBanHang.java</file>
-            <file>file:/home/vhk/PROJECT_ON_GIT/mediaoneteam/src/DataAccessLayer/HoaDonDAO.java</file>
-            <file>file:/home/vhk/PROJECT_ON_GIT/mediaoneteam/src/DataTranferObject/SanPham.java</file>
-            <file>file:/home/vhk/PROJECT_ON_GIT/mediaoneteam/src/DataTranferObject/DiaPhim.java</file>
         </group>
     </open-files>
 </project-private>

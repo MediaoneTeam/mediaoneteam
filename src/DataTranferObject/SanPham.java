@@ -20,13 +20,16 @@ public class SanPham {
   private  int soluongconlai;
   private  int giabanhientai;
   private  String anhminhhoa;
-    public SanPham(ResultSet resultSet) {
+  private String tinhTrang;
+   
+  public SanPham(ResultSet resultSet) {
         try {
             idsanpham=resultSet.getString("idsanpham");
             tensanpham=resultSet.getString("tensanpham");
             soluongconlai=resultSet.getInt("soluongconlai");
             giabanhientai=resultSet.getInt("giabanhientai");
             anhminhhoa=resultSet.getString("anhminhhoa");
+            tinhTrang = resultSet.getString("dangDatHang");
         } catch (SQLException ex) {
             System.out.println("SanPham contructor không có chứa cột tương ứng");
         }
@@ -51,13 +54,13 @@ public class SanPham {
         return tensanpham;
     }
 
-    
-    
+   
     public String getAnhminhhoa() {
         return anhminhhoa;
     }
 
-    
-    
+    public String getTinhTrang() {
+        return tinhTrang;
+    }
     
 }

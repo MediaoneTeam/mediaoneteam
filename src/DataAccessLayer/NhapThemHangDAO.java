@@ -9,18 +9,18 @@ import DataTranferObject.DiaNhac;
 import DataTranferObject.DiaPhim;
 import DataTranferObject.Sach;
 
-public class NhapHangDAO {
+public class NhapThemHangDAO {
      //NOT COMPLITE!!!!!!!!!!!!!!!!!!!!
-    public static void NhapHangDAO(Sach sach){
+    public static void NhapThemHang(Sach sach){
        
       //  String query="INSERT INTO `giaodich`(`sanpham_idsanpham`, `hoadon_idhoadon`, `soluong`, `giatien`) VALUES ("+giaoDich.getIdsanpham()+","+giaoDich.getIdhoadon()+","+giaoDich.getSoluong()+","+giaoDich.getGiatien()+")";
         //DataProvider.getDatDataProvider().executeInsert(query);
     }
-    public static void NhapHangDAO(DiaPhim diaphim){
+    public static void NhapThemHang(DiaPhim diaphim){
        // String query="INSERT INTO `giaodich`(`sanpham_idsanpham`, `hoadon_idhoadon`, `soluong`, `giatien`) VALUES ("+giaoDich.getIdsanpham()+","+giaoDich.getIdhoadon()+","+giaoDich.getSoluong()+","+giaoDich.getGiatien()+")";
         //DataProvider.getDatDataProvider().executeInsert(query);
     }
-    public static void NhapHangDAO(DiaNhac dianhac){
+    public static void NhapThemHang(DiaNhac dianhac){
        // String query="INSERT INTO `giaodich`(`sanpham_idsanpham`, `hoadon_idhoadon`, `soluong`, `giatien`) VALUES ("+giaoDich.getIdsanpham()+","+giaoDich.getIdhoadon()+","+giaoDich.getSoluong()+","+giaoDich.getGiatien()+")";
        // DataProvider.getDatDataProvider().executeInsert(query);
     }
