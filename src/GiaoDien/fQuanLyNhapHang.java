@@ -5,6 +5,7 @@
  */
 package GiaoDien;
 
+import BusinessLayer.DatHangBO;
 import BusinessLayer.NhapThemHangBO;
 import DataAccessLayer.NhaCungCapDAO;
 import DataAccessLayer.SanPhamDAO;
@@ -12,6 +13,7 @@ import DataAccessLayer.nhacungcap_hanghoaDAO;
 import DataTranferObject.GiaoDichNhap;
 import DataTranferObject.NhaCungCap;
 import DataTranferObject.NhanVien;
+import DataTranferObject.PhieuNhapKho;
 import DataTranferObject.SanPham;
 import java.io.BufferedReader;
 import java.io.File;
@@ -31,11 +33,24 @@ public class fQuanLyNhapHang extends javax.swing.JFrame {
     int rowNumber = 0;
     NhanVien nhanVien;
     ArrayList<Object[]> listProducesForTableCacMatHangDaHet = new ArrayList<>();
-    //  objProduces[0]:Idsanpham;objProduces[1]:Tensanpham;objProduces[2]:TinhTrang;
+    //  objProduces[0]:Idsanpham;
+    //objProduces[1]:Tensanpham;
+    //objProduces[2]:TinhTrang;
     ArrayList<Object[]> listProducesForTableDonNhapHang = new ArrayList<>();
-    //
+    // produces[0] :mã sản phẩm
+    //    produces[1] :tên sản phẩm
+    //    produces[2] :số lượng sản phẩm
+    //    produces[3] :tên nhà cung cấp
+    //    produces[4] :giá cung cấp
+    //    produces[5] :mã nhà cung cấpf
+    //    produces[6] :id phiếu nhập kho
      ArrayList<Object[]> listProducesForTableNhapHang = new ArrayList<>();
-     //
+        //0:ma hoa don
+        //1:ma san pham
+        //2:so luong san pham
+        //3:gia san pham
+        //4:ma nha cung cap
+    
     public fQuanLyNhapHang(NhanVien nhanvien) {
         this.nhanVien = nhanvien;
         this.nhanVien.setIdnhanvien(1);
@@ -416,39 +431,35 @@ public class fQuanLyNhapHang extends javax.swing.JFrame {
         jTextField1.setEditable(false);
         
         listProducesForTableNhapHang = ReadCSVFile(selectedFile);
+        
+        
       }    
     hienThiDanhSachCacMatHangCanNhap();
     }//GEN-LAST:event_jButton4MouseClicked
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
-        ArrayList<GiaoDichNhap> giaodichnhaps = new ArrayList<GiaoDichNhap>();
-        int idNhaCungCap = 0 ;
-       
-        for(Object[] produces:listProducesForTableNhapHang){        
-            giaodichnhaps.add(new GiaoDichNhap(produces[0].toString(),//id san pham
-                                                                    0,//id hoa don
-                                               Integer.parseInt(produces[1].toString()),//so luong
-                                               Integer.parseInt(produces[3].toString())));//gia tien
-            idNhaCungCap = Integer.parseInt(produces[2].toString());
-        }
-        NhapThemHangBO.NhapThemHang(this.nhanVien, giaodichnhaps, idNhaCungCap);
-        JOptionPane.showMessageDialog(this, "Nhập hàng hoàn tất");
+          ArrayList<GiaoDichNhap> giaodichnhaps = new ArrayList<>();
+          for(Object[]produces:listProducesForTableNhapHang){
+              giaodichnhaps.add(new GiaoDichNhap(produces[1].toString(), //id san pham
+                                                 Integer.parseInt(produces[0].toString()), //id hoa don
+                                                 Integer.parseInt(produces[2].toString()), //so luong
+                                                 Integer.parseInt(produces[3].toString()),    //gia tien
+                                                 "true")); //status
+          }
+          NhapThemHangBO.NhapThemHang(giaodichnhaps);
     }//GEN-LAST:event_jButton5MouseClicked
 
     private void jButtonXuatFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonXuatFileMouseClicked
        //count so luong nha san xuat
         ArrayList<Integer> idNhaSanXuat = new ArrayList();
+       
         for (Object[] produce : listProducesForTableDonNhapHang) {
+               
             int id = Integer.parseInt(produce[5].toString());
             if(!isDuplicateNumber(idNhaSanXuat,id)) idNhaSanXuat.add(id);
         }
+        DatHang(idNhaSanXuat);
         TaoHoaDonDatHang(idNhaSanXuat);
-        
-        for (Object[] produce : listProducesForTableDonNhapHang) {
-             String id = produce[0].toString();
-             System.out.println(id+","+"true");
-             SanPhamDAO.setStatus(id,"true");
-         }
         JOptionPane.showMessageDialog(this, "Các đơn hàng đã được tạo thành công");
     }//GEN-LAST:event_jButtonXuatFileMouseClicked
 
@@ -457,7 +468,7 @@ public class fQuanLyNhapHang extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxNhaCungCapActionPerformed
 
     private void jButtonAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddMouseClicked
-        Object[] produces = new Object[6];
+        Object[] produces = new Object[7];
         produces[0] = jTable1.getValueAt(rowNumber, 0);
         produces[1] = jTable1.getValueAt(rowNumber, 1);
         produces[2] = jSpinner1.getValue();
@@ -493,8 +504,7 @@ public class fQuanLyNhapHang extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jComboBoxNhaCungCapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxNhaCungCapMouseClicked
-        // TODO add your handling code here:
-      
+
     }//GEN-LAST:event_jComboBoxNhaCungCapMouseClicked
 
     private void jBtnRefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnRefreshMouseClicked
@@ -506,35 +516,71 @@ public class fQuanLyNhapHang extends javax.swing.JFrame {
         listProducesForTableDonNhapHang.clear();
         hienThiDanhSachSanPhamTrongDonDatHang();
     }//GEN-LAST:event_jButton1MouseClicked
+    
+    
+    private void DatHang(ArrayList<Integer> idNhaSanXuat){
+        ArrayList<GiaoDichNhap> giaodichnhaps = new ArrayList<>();
+        PhieuNhapKho phieuNhapKho = null;
+        for(int i :idNhaSanXuat){
+            
+            giaodichnhaps.clear();
+            
+            for(Object[] produces:listProducesForTableDonNhapHang){
+              int id = Integer.parseInt(produces[5].toString());
+              if(id == i ) {
+                  giaodichnhaps.add(new GiaoDichNhap(produces[0].toString(),
+                                                     id,
+                                                     Integer.parseInt(produces[2].toString()),
+                                                     Integer.parseInt(produces[4].toString()),
+                                                     "false"));
+              }
+            }   
+            
+            phieuNhapKho = DatHangBO.DatHang(this.nhanVien, giaodichnhaps,i);
+            
+            for(Object[] produces:listProducesForTableDonNhapHang){
+                 int id = Integer.parseInt(produces[5].toString());
+                  if(id == i ) {
+                      produces[6] = phieuNhapKho.getIdhoadon();
+                  }
+            }
+        }
+       
+    }
     private void TaoHoaDonDatHang(ArrayList<Integer> idNhaSanXuat){
-        for(int i:idNhaSanXuat){
+       
+       for(int i:idNhaSanXuat){
             String tenNhaCungCap = NhaCungCapDAO.getNameById(i);
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             Date date = new Date();
             String currentDate = dateFormat.format(date);
+            
             String path = "/home/vhk/PROJECT_ON_GIT/mediaoneteam/test/dathangCSV/"+currentDate+tenNhaCungCap+".csv";
-            // Use relative path for Unix systems
+    
             File f = new File(path);
             f.getParentFile().mkdirs(); 
             try {
                 f.createNewFile();
-                
-            } catch (IOException ex) {
-            }
+            } catch (IOException ex) {}
             int id;
             PrintWriter printWriter = null;
             try {
                 printWriter = new PrintWriter(f);
-                 for (Object[] produce : listProducesForTableDonNhapHang) {
-                     id = Integer.parseInt(produce[5].toString());
-                   if(id == i ){//idsanpham,soluong,idnhasanxuat,gianhap
-                       printWriter.println(produce[0]+","+produce[2]+","+id+","+produce[4]);
-                   }  
-            } 
+                for(Object[] produces:listProducesForTableDonNhapHang){
+                   id = Integer.parseInt(produces[5].toString());
+                   if(id == i){
+                    printWriter.println(produces[6].toString()+","//idphieunhapkho
+                            +produces[0].toString()+","+//idsanpham
+                            produces[2].toString()+","+//soluong
+                            produces[4].toString()+","+//gianhap
+                            i);//idnhacungcap 
+                   }
+                    
+                }
+        
             } catch (FileNotFoundException ex) {
             }finally{
             printWriter.close();
-             
             }
         }   
            
@@ -581,10 +627,10 @@ public class fQuanLyNhapHang extends javax.swing.JFrame {
         Object[] objProduces;
         for (Object[] produces : listProducesForTableNhapHang) {
             objProduces = new Object[5];
-            objProduces[0] = produces[0];//ma san pham
-            objProduces[1] = SanPhamDAO.getNameById(produces[0].toString());
-            objProduces[2] = NhaCungCapDAO.getNameById(Integer.parseInt(produces[2].toString()));
-            objProduces[3] = produces[1];//so luong san pham
+            objProduces[0] = produces[1];//ma san pham
+            objProduces[1] = SanPhamDAO.getNameById(produces[1].toString());
+            objProduces[2] = NhaCungCapDAO.getNameById(Integer.parseInt(produces[4].toString()));
+            objProduces[3] = produces[2];//so luong san pham
             objProduces[4] = produces[3];//gia nhap
             tmp.add(objProduces);
         }

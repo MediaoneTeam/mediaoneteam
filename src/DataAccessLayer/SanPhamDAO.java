@@ -69,23 +69,5 @@ public class SanPhamDAO {
         }
          return name;
     }
-    
-    public static void setStatus(String idsanpham,String status){
-         String query="UPDATE `sanpham` SET `dangdathang`=\""+status+"\" WHERE idsanpham="+idsanpham;
-        DataProvider.getDatDataProvider().executeUpdate(query);
-    }
-    public static String getStatus(String idsanpham){
-        String status=null;
-        String query = "SELECT dangdathang FROM sanpham WHERE idsanpham="+idsanpham;
-         ResultSet resultSet=DataProvider.getDatDataProvider().executeQuery(query);
-         try {
-            while(resultSet.next()){
-               status = resultSet.getString("dangdathang");
-                break;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         return status;
-    }
+
 }

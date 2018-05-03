@@ -5,7 +5,6 @@
  */
 package DataAccessLayer;
 
-import DataTranferObject.HoaDon;
 import DataTranferObject.NhanVien;
 import DataTranferObject.PhieuNhapKho;
 import java.sql.ResultSet;
@@ -21,13 +20,15 @@ public class PhieuNhapKhoDAO {
      public static PhieuNhapKho insertPhieuNhapKho(NhanVien nhanVien,int idNhaCungCap){
         PhieuNhapKho phieuNhapKho = null;
         
-        String query="INSERT INTO `phieunhapkho`(`idphieunhapkho`, `ngaynhap`,`idnhacungcap` ,`idnhanvien`) VALUES "
-                + "(null,null,"+idNhaCungCap+","+nhanVien.getIdnhanvien()+")";
-        
+        String query="INSERT INTO `phieunhapkho`(`idphieunhapkho`,`ngaydathang`,`ngaynhap`,`idnhacungcap` ,`idnhanvien`) VALUES "
+                + "(null,null,null,"+idNhaCungCap+","+nhanVien.getIdnhanvien()+")";
         ResultSet resultSet=DataProvider.getDatDataProvider().executeInsert(query);
+        if(resultSet == null){
+            System.out.println("Loi thuc thi cau lenh insert phieunhapkho");
+        }
        
         try {
-             int idPhieuNhapKho=0;
+            int idPhieuNhapKho=0;
             while(resultSet.next()){
                 idPhieuNhapKho = resultSet.getInt(1);
                 break;
@@ -42,5 +43,10 @@ public class PhieuNhapKhoDAO {
        
         return phieuNhapKho;
               
+    }
+       public static void updatePhieuNhapKho(int idphieunhapkho){
+        String query = "UPDATE phieunhapkho SET ngaynhap = CURRENT_TIMESTAMP WHERE idphieunhapkho ="+idphieunhapkho;
+        DataProvider.getDatDataProvider().executeInsert(query);
+        
     }
 }

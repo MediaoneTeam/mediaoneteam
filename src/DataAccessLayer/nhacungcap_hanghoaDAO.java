@@ -24,7 +24,9 @@ public class nhacungcap_hanghoaDAO {
          try {
            
             while(resultSet.next()){
+              
                 gia = resultSet.getInt("giacungung");
+               
                 break;
             }
         } catch (SQLException ex) {

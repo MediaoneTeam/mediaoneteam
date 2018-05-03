@@ -6,14 +6,23 @@ public class GiaoDichNhap {
     private int idHoaDon;
     private int soluong;
     private int giatien;
-
-    public GiaoDichNhap(String idSanPham,int idHoaDon, int soluong, int giatien) {
+    private String status;
+    public GiaoDichNhap(String idSanPham,int idHoaDon, int soluong, int giatien,String status) {
         this.idSanPham = idSanPham;
         this.idHoaDon =idHoaDon;
         this.soluong = soluong;
         this.giatien = giatien;
+        this.status = status;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
     public String getIdSanPham() {
         return idSanPham;
     }
