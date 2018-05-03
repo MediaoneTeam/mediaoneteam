@@ -392,6 +392,12 @@ public class fQuanLyNhapHang extends javax.swing.JFrame {
             if(!isDuplicateNumber(idNhaSanXuat,id)) idNhaSanXuat.add(id);
         }
         TaoHoaDonDatHang(idNhaSanXuat);
+        //change "DangDatHANG"->TRUE
+        
+        
+        
+        
+        
     }//GEN-LAST:event_jButton2MouseClicked
     private void TaoHoaDonDatHang(ArrayList<Integer> idNhaSanXuat){
         for(int i:idNhaSanXuat){

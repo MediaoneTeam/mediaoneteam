@@ -15,13 +15,22 @@ import java.util.logging.Logger;
  * @author lehuyhung
  */
 public class SanPham {
-    private String idsanpham;
-   private String tensanpham;
+  private String idsanpham;
+  private String tensanpham;
   private  int soluongconlai;
   private  int giabanhientai;
   private  String anhminhhoa;
   private String tinhTrang;
-   
+
+    public SanPham(String idsanpham, String tensanpham, int soluongconlai, int giabanhientai, String anhminhhoa, String tinhTrang) {
+        this.idsanpham = idsanpham;
+        this.tensanpham = tensanpham;
+        this.soluongconlai = soluongconlai;
+        this.giabanhientai = giabanhientai;
+        this.anhminhhoa = anhminhhoa;
+        this.tinhTrang = tinhTrang;
+    }
+  
   public SanPham(ResultSet resultSet) {
         try {
             idsanpham=resultSet.getString("idsanpham");

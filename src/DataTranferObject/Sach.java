@@ -12,9 +12,27 @@ import java.sql.ResultSet;
  * @author lehuyhung
  */
 public class Sach extends SanPham {
+    private String tennhaxuatban;
+    private String tentacgia;
+
+    public Sach(String tennhaxuatban, String tentacgia, String idsanpham, String tensanpham, int soluongconlai, int giabanhientai, String anhminhhoa, String tinhTrang) {
+        super(idsanpham, tensanpham, soluongconlai, giabanhientai, anhminhhoa, tinhTrang);
+        this.tennhaxuatban = tennhaxuatban;
+        this.tentacgia = tentacgia;
+    }
+    
+    
     
     public Sach(ResultSet resultSet) {
         super(resultSet);
+    }
+
+    public String getTennhaxuatban() {
+        return tennhaxuatban;
+    }
+
+    public String getTentacgia() {
+        return tentacgia;
     }
     
 }
