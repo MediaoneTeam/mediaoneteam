@@ -12,6 +12,7 @@ import DataTranferObject.GiaoDich;
 import DataTranferObject.HoaDon;
 import DataTranferObject.NhanVien;
 import java.util.ArrayList;
+import javax.swing.JButton;
 
 /**
  *
@@ -27,4 +28,9 @@ public class ThanhToanBO {
         }
         
     }
+    public JButton jButton2;
+    public JButton jButton3;
+    // Variables declaration - do not modify
+    public JButton jButton1;
+    public JButton jButton4;
 }
