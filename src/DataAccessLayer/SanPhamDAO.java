@@ -38,10 +38,10 @@ public class SanPhamDAO {
         DataProvider.getDatDataProvider().executeUpdate(query);
     }
     
-    public static ArrayList<SanPham> getSanPhamDaHetHang(){
+    public static ArrayList<SanPham> getSanPhamNhoHonSoluongChoTruoc(int soluongconlai){
         ArrayList<SanPham> listSanPhamHetHang = new ArrayList();
         SanPham sanPham=null;
-        String query="Select * from sanpham where soluongconlai=0";
+        String query="Select * from sanpham where soluongconlai<="+soluongconlai;
         ResultSet resultSet=DataProvider.getDatDataProvider().executeQuery(query);
         try {
             while(resultSet.next()){
@@ -53,6 +53,8 @@ public class SanPhamDAO {
         }
         return listSanPhamHetHang;
     }
+    
+    
     public static String getNameById(String idsanpham){
         String name=null;
         String query = "SELECT tensanpham FROM sanpham WHERE idsanpham="+idsanpham;
@@ -66,5 +68,24 @@ public class SanPhamDAO {
             Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
          return name;
+    }
+    
+    public static void setStatus(String idsanpham,String status){
+         String query="UPDATE `sanpham` SET `dangdathang`=\""+status+"\" WHERE idsanpham="+idsanpham;
+        DataProvider.getDatDataProvider().executeUpdate(query);
+    }
+    public static String getStatus(String idsanpham){
+        String status=null;
+        String query = "SELECT dangdathang FROM sanpham WHERE idsanpham="+idsanpham;
+         ResultSet resultSet=DataProvider.getDatDataProvider().executeQuery(query);
+         try {
+            while(resultSet.next()){
+               status = resultSet.getString("dangdathang");
+                break;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return status;
     }
 }
