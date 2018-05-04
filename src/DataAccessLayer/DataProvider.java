@@ -83,14 +83,16 @@ class DataProvider {
     }
     public static void main(String[] args) {
         
-        ResultSet rs=DataProvider.getDatDataProvider().executeQuery("select * from nhanvien");
+        ResultSet rs=DataProvider.getDatDataProvider().executeQuery("select *FROM  giaodichnhap");
         try {
             while(rs.next()){
-                System.out.println(rs.getString("tennhanvien"));
+                System.out.println(rs.getString("idphieunhapkho"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DataProvider.class.getName()).log(Level.SEVERE, null, ex);
         }
         DataProvider.getDatDataProvider().executeInsert("INSERT INTO `hoadon`(`idhoadon`, `ngaymua`, `nhanvien_idnhanvien`) VALUES (null,null,1)");
+       
     }
+     
 }

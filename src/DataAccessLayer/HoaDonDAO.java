@@ -8,7 +8,6 @@ package DataAccessLayer;
 import DataTranferObject.HoaDon;
 import DataTranferObject.NhanVien;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

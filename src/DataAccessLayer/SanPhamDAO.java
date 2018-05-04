@@ -1,24 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DataAccessLayer;
 
 import DataTranferObject.SanPham;
 import Exception.IdSanPhamNotMatch;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author lehuyhung
- */
+
 public class SanPhamDAO {
     
     static public SanPham getSanPham(String idsanpham) throws IdSanPhamNotMatch{
@@ -42,4 +32,42 @@ public class SanPhamDAO {
     String query="UPDATE `sanpham` SET `soluongconlai`=`soluongconlai`-"+luonggiam+" WHERE idsanpham="+idsanpham;
         DataProvider.getDatDataProvider().executeUpdate(query);
     }
+    
+    public static void tangSoluong(String idsanpham,int luongtang){
+        String query="UPDATE `sanpham` SET `soluongconlai`=`soluongconlai`+"+luongtang+" WHERE idsanpham="+idsanpham;
+        DataProvider.getDatDataProvider().executeUpdate(query);
+    }
+    
+    public static ArrayList<SanPham> getSanPhamNhoHonSoluongChoTruoc(int soluongconlai){
+        ArrayList<SanPham> listSanPhamHetHang = new ArrayList();
+        SanPham sanPham=null;
+        String query="Select * from sanpham where soluongconlai<="+soluongconlai;
+        ResultSet resultSet=DataProvider.getDatDataProvider().executeQuery(query);
+        try {
+            while(resultSet.next()){
+                sanPham = new SanPham(resultSet);
+                listSanPhamHetHang.add(sanPham);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listSanPhamHetHang;
+    }
+    
+    
+    public static String getNameById(String idsanpham){
+        String name=null;
+        String query = "SELECT tensanpham FROM sanpham WHERE idsanpham="+idsanpham;
+         ResultSet resultSet=DataProvider.getDatDataProvider().executeQuery(query);
+         try {
+            while(resultSet.next()){
+               name = resultSet.getString("tensanpham");
+                break;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return name;
+    }
+
 }

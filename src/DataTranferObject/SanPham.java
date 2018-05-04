@@ -15,18 +15,30 @@ import java.util.logging.Logger;
  * @author lehuyhung
  */
 public class SanPham {
-    private String idsanpham;
-   private String tensanpham;
+  private String idsanpham;
+  private String tensanpham;
   private  int soluongconlai;
   private  int giabanhientai;
   private  String anhminhhoa;
-    public SanPham(ResultSet resultSet) {
+  private String tinhTrang;
+
+    public SanPham(String idsanpham, String tensanpham, int soluongconlai, int giabanhientai, String anhminhhoa, String tinhTrang) {
+        this.idsanpham = idsanpham;
+        this.tensanpham = tensanpham;
+        this.soluongconlai = soluongconlai;
+        this.giabanhientai = giabanhientai;
+        this.anhminhhoa = anhminhhoa;
+        this.tinhTrang = tinhTrang;
+    }
+  
+  public SanPham(ResultSet resultSet) {
         try {
             idsanpham=resultSet.getString("idsanpham");
             tensanpham=resultSet.getString("tensanpham");
             soluongconlai=resultSet.getInt("soluongconlai");
             giabanhientai=resultSet.getInt("giabanhientai");
             anhminhhoa=resultSet.getString("anhminhhoa");
+            tinhTrang = resultSet.getString("dangDatHang");
         } catch (SQLException ex) {
             System.out.println("SanPham contructor không có chứa cột tương ứng");
         }
@@ -51,13 +63,13 @@ public class SanPham {
         return tensanpham;
     }
 
-    
-    
+   
     public String getAnhminhhoa() {
         return anhminhhoa;
     }
 
-    
-    
+    public String getTinhTrang() {
+        return tinhTrang;
+    }
     
 }
