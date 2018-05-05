@@ -438,7 +438,8 @@ public class fQuanLyNhapHang extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4MouseClicked
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
-          ArrayList<GiaoDichNhap> giaodichnhaps = new ArrayList<>();
+        int soluongHangNhapThanhCong;  
+        ArrayList<GiaoDichNhap> giaodichnhaps = new ArrayList<>();
           for(Object[]produces:listProducesForTableNhapHang){
               giaodichnhaps.add(new GiaoDichNhap(produces[1].toString(), //id san pham
                                                  Integer.parseInt(produces[0].toString()), //id hoa don
@@ -446,7 +447,13 @@ public class fQuanLyNhapHang extends javax.swing.JFrame {
                                                  Integer.parseInt(produces[3].toString()),    //gia tien
                                                  "true")); //status
           }
-          NhapThemHangBO.NhapThemHang(giaodichnhaps);
+          soluongHangNhapThanhCong = NhapThemHangBO.NhapThemHang(giaodichnhaps);
+          if(soluongHangNhapThanhCong!=0){
+          JOptionPane.showMessageDialog(this,"Nhập thành công "+soluongHangNhapThanhCong+" mặt hàng");    
+          }else{
+               JOptionPane.showMessageDialog(this,"Không có mặt hàng nào được nhập vào kho do đơn đặt hàng đã được duyệt");    
+          }
+          
     }//GEN-LAST:event_jButton5MouseClicked
 
     private void jButtonXuatFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonXuatFileMouseClicked
@@ -602,14 +609,22 @@ public class fQuanLyNhapHang extends javax.swing.JFrame {
     }
     private void hienThiDanhSachCacMatHangNhoHonSoLuongChoTruoc(int soluong){
         ArrayList<SanPham> listSanPhamHetHang = SanPhamDAO.getSanPhamNhoHonSoluongChoTruoc(soluong);
-        String coltitle[] = new String[]{"mã sản phẩm", "tên sản phẩm","Tình trạng"};
+        ArrayList<String> listIDSanPhamDangDatHang = SanPhamDAO.getIDSanPhamDangDatHang();
+        
+        String coltitle[] = new String[]{"mã sản phẩm", "tên sản phẩm","Đang đặt hàng"};
         Object[] objProduces;
         System.out.println(listSanPhamHetHang.size());
-        for(int i = 0 ;i<listSanPhamHetHang.size();i++){
+        String idsanpham;
+        for(SanPham sanpham:listSanPhamHetHang){
                 objProduces = new Object[3];
-                objProduces[0] = listSanPhamHetHang.get(i).getIdsanpham();
-                objProduces[1] = listSanPhamHetHang.get(i).getTensanpham();
-                objProduces[2] = listSanPhamHetHang.get(i).getTinhTrang();
+                idsanpham = sanpham.getIdsanpham();
+                objProduces[0] = idsanpham;
+                objProduces[1] = sanpham.getTensanpham();
+                if(checkDangDatHang(idsanpham,listIDSanPhamDangDatHang)){
+                    objProduces[2] = "Có";
+                }else{
+                    objProduces[2] = "Không";
+                }
                 listProducesForTableCacMatHangDaHet.add(objProduces);
         }
         
@@ -619,6 +634,12 @@ public class fQuanLyNhapHang extends javax.swing.JFrame {
             model.addRow(row);
         }
         jTable1.setModel(model);
+    }
+    private boolean checkDangDatHang(String idSanpham,ArrayList<String>idSanPhams){
+        for(String id:idSanPhams){
+            if(id.equals(idSanpham)) return true;
+        }
+        return false;
     }
     private void hienThiDanhSachCacMatHangCanNhap(){
         String coltitle[] = new String[]{"mã sản phẩm", "tên sản phẩm", "Nhà cung cấp", "số lượng sản phẩm", "giá nhập"};

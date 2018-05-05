@@ -71,5 +71,10 @@ public class SanPham {
     public String getTinhTrang() {
         return tinhTrang;
     }
+
+    public void setTinhTrang(String tinhTrang) {
+        this.tinhTrang = tinhTrang;
+    }
+    
     
 }

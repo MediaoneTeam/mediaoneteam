@@ -53,7 +53,20 @@ public class SanPhamDAO {
         }
         return listSanPhamHetHang;
     }
-    
+    public static ArrayList<String> getIDSanPhamDangDatHang(){
+        ArrayList<String> listIDSanPhamDangDatHang = new ArrayList();
+        String query="SELECT idsanpham  FROM giaodichnhap WHERE dagiao =\"false\"";
+        ResultSet resultSet=DataProvider.getDatDataProvider().executeQuery(query);
+        try {
+            while(resultSet.next()){
+                String idsanpham =  resultSet.getString("idsanpham");
+                listIDSanPhamDangDatHang.add(idsanpham);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listIDSanPhamDangDatHang;
+    }
     
     public static String getNameById(String idsanpham){
         String name=null;
