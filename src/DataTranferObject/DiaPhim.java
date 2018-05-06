@@ -27,6 +27,13 @@ public class DiaPhim extends SanPham{
         super(resultSet);
     }
 
+    
+    
+     public DiaPhim(ResultSet resultSet,String daodien,String dienvien) {
+        super(resultSet);
+        this.daodien=daodien;
+        this.dienvien=dienvien;
+    }
     public String getDaodien() {
         return daodien;
     }

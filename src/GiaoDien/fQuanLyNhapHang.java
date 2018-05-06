@@ -331,6 +331,11 @@ public class fQuanLyNhapHang extends javax.swing.JFrame {
                 jButton4MouseClicked(evt);
             }
         });
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -523,6 +528,10 @@ public class fQuanLyNhapHang extends javax.swing.JFrame {
         listProducesForTableDonNhapHang.clear();
         hienThiDanhSachSanPhamTrongDonDatHang();
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
     
     
     private void DatHang(ArrayList<Integer> idNhaSanXuat){
@@ -554,6 +563,7 @@ public class fQuanLyNhapHang extends javax.swing.JFrame {
         }
        
     }
+    
     private void TaoHoaDonDatHang(ArrayList<Integer> idNhaSanXuat){
        
        for(int i:idNhaSanXuat){

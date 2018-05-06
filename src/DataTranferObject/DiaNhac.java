@@ -26,7 +26,11 @@ public class DiaNhac extends SanPham{
     public DiaNhac(ResultSet resultSet) {
         super(resultSet);
     }
-
+public DiaNhac(ResultSet resultSet,String theloainhac_tentheloai,String tencasy ){
+     super(resultSet);
+     this.theloainhac_tentheloai=theloainhac_tentheloai;
+     this.tencasy=tencasy;
+ }
     public String getTheloainhac_tentheloai() {
         return theloainhac_tentheloai;
     }

@@ -21,7 +21,11 @@ public class Sach extends SanPham {
         this.tentacgia = tentacgia;
     }
     
-    
+     public Sach(ResultSet resultSet,String tennhaxuatban,String tentacgia) {
+        super(resultSet);
+        this.tennhaxuatban=tennhaxuatban;
+        this.tentacgia=tentacgia;
+    }
     
     public Sach(ResultSet resultSet) {
         super(resultSet);

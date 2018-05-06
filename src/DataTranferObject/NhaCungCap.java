@@ -13,7 +13,7 @@ import java.sql.SQLException;
  * @author vhk
  */
 public class NhaCungCap {
-    private int id;
+    private Integer id;
     private String name;
     private String diachi;
     private String sdt;
@@ -30,6 +30,19 @@ public class NhaCungCap {
             System.out.println("NhaCungCap contructor không có chứa cột tương ứng");
         }
          
+    }
+
+    public NhaCungCap(String tenNhaCungCap, String diaChi, String soDienThoai, String email) {
+        this.id = null;
+        this.name = tenNhaCungCap;
+        this.diachi = diaChi;
+        this.sdt = soDienThoai;
+        this.email = email;
+    }
+    
+    
+    public NhaCungCap() {
+        this.id = null;
     }
 
     public int getId() {
@@ -51,6 +64,28 @@ public class NhaCungCap {
     public String getEmail() {
         return email;
     }
+
+    public void setDiachi(String diachi) {
+        this.diachi = diachi;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
+    }
+
+   
     
     
 }

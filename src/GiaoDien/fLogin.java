@@ -160,7 +160,7 @@ public class fLogin extends javax.swing.JFrame {
         fQuanLyBanHang fquanlybanhang=new fQuanLyBanHang(nhanVien);
         this.setVisible(false);
         fquanlybanhang.setVisible(true);
-        fquanlybanhang.setAlwaysOnTop(true);
+        //fquanlybanhang.setAlwaysOnTop(true);
         }
         else{
             canhbaoloi();

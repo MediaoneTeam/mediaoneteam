@@ -23,7 +23,7 @@ class DataProvider {
     private Connection connection;
     private String user="root";
     private String password="";
-    private final String url="jdbc:mysql://localhost/mydb";
+    private final String url="jdbc:mysql://localhost:3306/mydb";
     private static DataProvider dataProvider;
     private DataProvider(){
         try {

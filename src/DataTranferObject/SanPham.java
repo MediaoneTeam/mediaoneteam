@@ -7,8 +7,6 @@ package DataTranferObject;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -38,7 +36,6 @@ public class SanPham {
             soluongconlai=resultSet.getInt("soluongconlai");
             giabanhientai=resultSet.getInt("giabanhientai");
             anhminhhoa=resultSet.getString("anhminhhoa");
-            tinhTrang = resultSet.getString("dangDatHang");
         } catch (SQLException ex) {
             System.out.println("SanPham contructor không có chứa cột tương ứng");
         }
@@ -67,14 +64,5 @@ public class SanPham {
     public String getAnhminhhoa() {
         return anhminhhoa;
     }
-
-    public String getTinhTrang() {
-        return tinhTrang;
-    }
-
-    public void setTinhTrang(String tinhTrang) {
-        this.tinhTrang = tinhTrang;
-    }
-    
-    
+       
 }

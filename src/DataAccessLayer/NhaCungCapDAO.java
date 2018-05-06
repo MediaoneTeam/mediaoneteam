@@ -63,4 +63,13 @@ public class NhaCungCapDAO {
         }
          return name;
     }
+     
+     
+     public static void insertNhaCungCap(NhaCungCap nhaCungCap) {
+        String query = "INSERT INTO `nhacungcap`(`idnhacungcap`, `tennhacungcap`, `diachi`, `sodienthoai`, `email`) VALUES "
+                + "(" + nhaCungCap.getId()+ ",'" + nhaCungCap.getName()+ "','" + nhaCungCap.getDiachi()+ "','"
+                + nhaCungCap.getSdt()+ "','" + nhaCungCap.getEmail()+ "')";
+        DataProvider.getDatDataProvider().executeInsert(query);
+    }
+
 }
