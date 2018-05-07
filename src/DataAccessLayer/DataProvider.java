@@ -22,8 +22,8 @@ class DataProvider {
     private final String classname="com.mysql.jdbc.Driver";
     private Connection connection;
     private String user="root";
-    private String password="";
-    private final String url="jdbc:mysql://localhost:3306/mydb";
+    private String password="1234";
+    private final String url="jdbc:mysql://localhost:3307/mydb";
     private static DataProvider dataProvider;
     private DataProvider(){
         try {
