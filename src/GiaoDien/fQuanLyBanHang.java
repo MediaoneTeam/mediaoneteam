@@ -86,6 +86,9 @@ public class fQuanLyBanHang extends javax.swing.JFrame {
 //            }
 //        };
      this.setAlwaysOnTop(false);
+     jTabbedPane1.add("Thêm sản phẩm mới", new pnThemSanPhamMoi());
+     jTabbedPane1.add("Thống kê", new pnThongKe());
+     jTabbedPane1.add("Thêm nhà cung cấp mới", new pnThemNhaCungCap());
     }
 
     private void clearInput() {
